@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { useCharactersStore } from "@/store/modules/characters";
   import { useRouter } from 'vue-router';
-
+  
   import CardComponent from "@/components/CardComponent.vue";
-
+  
   const router = useRouter();
   const characters = useCharactersStore();
 
@@ -14,7 +14,8 @@
   function goToDetails(id: number) {
     characters.setCharacter(id);
     router.push(`/character`);
-  }
+  };
+
 </script>
 
 <template>
@@ -31,6 +32,6 @@
     </li>
   </ul>
   <button @click="characters.getCharacters(nextPage)">
-    Voir plus
+    Voir plus {{ nextPage }}
   </button>
 </template>

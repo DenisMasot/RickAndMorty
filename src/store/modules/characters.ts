@@ -25,7 +25,8 @@ type Characters = {
 export const useCharactersStore = defineStore("characters", {
   state: () => ({
     charactersList: [] as Characters[],
-    nextPage: 2,
+    nextPage: 1,
+    nbPages: 3,
     currentId: 1,
   }),
   getters: {
@@ -38,9 +39,12 @@ export const useCharactersStore = defineStore("characters", {
         const results: Characters[] = res.data.results;
         if(page === 1) this.charactersList = [];
         this.charactersList = this.charactersList.concat(results);
-
-        if(res.data.info.next) {
+        this.nbPages = res.data.info.pages
+        if(this.nextPage <= this.nbPages) {
+          console.log("if", this.nextPage, this.nbPages)
           this.nextPage = res.data.info.next.split("=")[1];
+        } else {
+          console.log("else", this.nextPage, this.nbPages)
         }
       } catch(error: any) {
         if (typeof error === "string") {
